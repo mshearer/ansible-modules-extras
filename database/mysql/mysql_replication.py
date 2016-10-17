@@ -63,6 +63,7 @@ options:
     master_delay:
         description:
             - same as mysql variable
+        version_added: "2.3"
     master_log_file:
         description:
             - same as mysql variable
