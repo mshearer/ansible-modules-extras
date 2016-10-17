@@ -60,6 +60,9 @@ options:
     master_connect_retry:
         description:
             - same as mysql variable
+    master_delay:
+        description:
+            - same as mysql variable
     master_log_file:
         description:
             - same as mysql variable
@@ -195,6 +198,7 @@ def main():
             master_password=dict(default=None, no_log=True),
             master_port=dict(default=None, type='int'),
             master_connect_retry=dict(default=None, type='int'),
+            master_delay=dict(default=None, type='int'),
             master_log_file=dict(default=None),
             master_log_pos=dict(default=None, type='int'),
             relay_log_file=dict(default=None),
@@ -222,6 +226,7 @@ def main():
     master_password = module.params["master_password"]
     master_port = module.params["master_port"]
     master_connect_retry = module.params["master_connect_retry"]
+    master_delay_= module.params["master_delay"]
     master_log_file = module.params["master_log_file"]
     master_log_pos = module.params["master_log_pos"]
     relay_log_file = module.params["relay_log_file"]
@@ -320,6 +325,9 @@ def main():
         if master_ssl_cipher:
             chm.append("MASTER_SSL_CIPHER=%(master_ssl_cipher)s")
             chm_params['master_ssl_cipher'] = master_ssl_cipher
+        if master_delay:
+            chm.append("MASTER_DELAY=%(master_delay)s")
+            chm_params['master_delay'] = master_delay
         if master_auto_position:
             chm.append("MASTER_AUTO_POSITION = 1")
         try:
